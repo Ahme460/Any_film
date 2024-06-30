@@ -1,0 +1,59 @@
+class Arbic_movie:
+    pass
+
+def get_link_and_name():
+    import requests
+    from bs4 import BeautifulSoup
+
+    link_dwonload = {}
+
+    #response = requests.get("https://wecima.show/category/%d8%a3%d9%81%d9%84%d8%a7%d9%85/%d8%a7%d9%81%d9%84%d8%a7%d9%85-%d8%b9%d8%b1%d8%a8%d9%8a-arabic-movies/")
+    #soup = BeautifulSoup(response.text, 'html.parser')
+
+    # العثور على div بعنصر class المطلوب
+    #grid_div = soup.find('div', class_='Grid--WecimaPosts')
+
+    #if grid_div:
+        # العثور على جميع العناصر التي تحتوي على GridItem
+        #grid_items = grid_div.find_all('div', class_='GridItem')
+
+        # جلب الروابط وأسماء الأفلام
+        #for item in grid_items:
+           # link_tag = item.find('a')
+           # if link_tag:
+                #title = link_tag.get('title')
+                #namee = title.split()
+                #name = ' '.join(namee[1:-1])  # تعديل الفهرسة للحصول على الاسم الصحيح
+                #href = link_tag.get('href')
+                #link_dwonload[name] = href
+#فيلم مغامرات كوكو  فيلم البطة الصفرا
+    #فيلم مغامرات كوكو'  فيلم عاشق عموري
+    
+
+    for i in range(21,31):
+        url = f'https://wecima.show/category/%d8%a3%d9%81%d9%84%d8%a7%d9%85/%d8%a7%d9%81%d9%84%d8%a7%d9%85-%d8%b9%d8%b1%d8%a8%d9%8a-arabic-movies/page/{i}/'
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # العثور على div بعنصر class المطلوب
+        grid_div = soup.find('div', class_='Grid--WecimaPosts')
+
+        if grid_div:
+            # العثور على جميع العناصر التي تحتوي على GridItem
+            grid_items = grid_div.find_all('div', class_='GridItem')
+
+            # جلب الروابط وأسماء الأفلام
+            for item in grid_items:
+                link_tag = item.find('a')
+                if link_tag:
+                    title = link_tag.get('title')
+                    #namee = title.split()
+                    #name = ' '.join(namee[1:-1])  # تعديل الفهرسة للحصول على الاسم الصحيح
+                    href = link_tag.get('href')
+                    link_dwonload[title] = href
+
+
+    print(len(link_dwonload))
+    return link_dwonload
+
+print(get_link_and_name())
